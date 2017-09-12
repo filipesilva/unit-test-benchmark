@@ -1,0 +1,19 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-my-comp-7414',
+  template: `
+    <p>
+      my-comp-7414 Works!
+    </p>
+  `,
+  styles: []
+})
+export class MyComp7414Component implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
