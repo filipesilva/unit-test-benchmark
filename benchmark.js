@@ -149,6 +149,7 @@ function benchmarkScript(scriptName) {
   const silent = true;
   // Karma is only really finished with a run when it shows a non-zero total time in the first slot.
   const karmaGoodRegEx = /Executed \d+ of \d+ SUCCESS \((\d+\.\d+) secs/;
+  const specFile = 'src/app/components/1-1000/my-comp-1/my-comp-1.component.spec.ts';
   let originalSpec;
 
   const NS_PER_SEC = 1e9;
@@ -174,7 +175,7 @@ function benchmarkScript(scriptName) {
       results.initialSpecTime = specTime;
     })
     // Save original spec contents.
-    .then(() => readFile('src/app/app.component.spec.ts'))
+    .then(() => readFile(specFile))
     .then((data) => originalSpec = data)
     // Record the time for 5 rebuilds.
     .then(() => {
@@ -182,8 +183,8 @@ function benchmarkScript(scriptName) {
       for (let idx = 0; idx < 5; idx++) {
         promise = promise
           .then(() => startTime = process.hrtime())
-          .then(() => writeFile('src/app/app.component.spec.ts', originalSpec + 'console.log(1);'))
-          .then(() => waitForAnyProcessOutputToMatch(karmaGoodRegEx, 20000))
+          .then(() => writeFile(specFile, originalSpec + 'console.log(1);'))
+          .then(() => waitForAnyProcessOutputToMatch(karmaGoodRegEx, 2000000))
           .then(({ stdout }) => {
             const diff = process.hrtime(startTime);
             const time = (diff[0] * NS_PER_SEC + diff[1]) / NS_PER_SEC;
@@ -198,7 +199,7 @@ function benchmarkScript(scriptName) {
       killAllProcesses();
       throw err;
     })
-    .then(() => writeFile('src/app/app.component.spec.ts', originalSpec))
+    .then(() => writeFile(specFile, originalSpec))
     .then(() => results);
 }
 
