@@ -148,7 +148,7 @@ function benchmarkScript(scriptName) {
   // Set silent to false to see karma output message (e.g. for debugging).
   const silent = true;
   // Karma is only really finished with a run when it shows a non-zero total time in the first slot.
-  const karmaGoodRegEx = /Executed 3 of 3 SUCCESS \((\d+\.\d+) secs/;
+  const karmaGoodRegEx = /Executed \d+ of \d+ SUCCESS \((\d+\.\d+) secs/;
   let originalSpec;
 
   const NS_PER_SEC = 1e9;
